@@ -68,7 +68,7 @@ The app provides:
 
 ## 📁 Project Structure
 
-```plaintext
+plaintext
 mock-examination-app/
 │
 ├── app.py              # Main application logic (UI + flow)
