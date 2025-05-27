@@ -68,7 +68,7 @@ The app provides:
 
 ## 📁 Project Structure
 
-plaintext
+```plaintext
 mock-examination-app/
 │
 ├── app.py              # Main application logic (UI + flow)
@@ -77,6 +77,8 @@ mock-examination-app/
 ├── requirements.txt    # Python dependencies
 ├── README.md           # Project documentation
 └── .streamlit/         # Optional Streamlit settings (e.g., config.toml)
+
+```
 ---
 
 ## ⚙️ Installation and Setup
