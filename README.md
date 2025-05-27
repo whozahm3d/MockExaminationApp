@@ -68,15 +68,16 @@ The app provides:
 
 ## 📁 Project Structure
 
-mock-examination-app/
-│
-├── app.py # Main application logic (UI + flow)
-├── utilities.py # Contains UserDatabase class and DB interactions
-├── logo.png # Logo displayed in sidebar
-├── requirements.txt # Python dependencies
-├── README.md # Project documentation
-└── .streamlit/ # Optional Streamlit settings
 
-yaml
-Copy
-Edit
+---
+
+## ⚙️ Installation and Setup
+
+Follow these steps to get the app running locally:
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/your-username/mock-examination-app.git
+cd mock-examination-app
+
