@@ -68,7 +68,15 @@ The app provides:
 
 ## 📁 Project Structure
 
-
+```plaintext
+mock-examination-app/
+│
+├── app.py              # Main application logic (UI + flow)
+├── utilities.py        # Contains UserDatabase class and DB interactions
+├── logo.png            # Logo displayed in sidebar
+├── requirements.txt    # Python dependencies
+├── README.md           # Project documentation
+└── .streamlit/         # Optional Streamlit settings (e.g., config.toml)
 ---
 
 ## ⚙️ Installation and Setup
@@ -76,17 +84,17 @@ The app provides:
 Follow these steps to get the app running locally:
 
 ```bash
-1. **Clone the repository**
+1. Clone the repository
 git clone https://github.com/your-username/mock-examination-app.git
 cd mock-examination-app
 
-2.  **(Optional) Create a virtual environment**
+2. (Optional) Create a virtual environment
 python -m venv venv
 source venv/bin/activate      # Windows: venv\Scripts\activate
 
-3.  **Install dependencies**
+3. Install dependencies
 pip install -r requirements.txt
 
-4.  **Run the app**
+4. Run the app
 streamlit run app.py
 
