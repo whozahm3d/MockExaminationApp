@@ -81,3 +81,7 @@ Follow these steps to get the app running locally:
 git clone https://github.com/your-username/mock-examination-app.git
 cd mock-examination-app
 
+python -m venv venv
+source venv/bin/activate      # Windows: venv\Scripts\activate
+
+
