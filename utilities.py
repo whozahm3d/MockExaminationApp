@@ -156,9 +156,7 @@ class UserDatabase:
     def get_random_questions(self, exam_type, num_questions=10):
         conn = self._get_connection()
         cursor = conn.cursor()
-        
-        # Debug: Log the query parameters
-        print(f"Fetching questions for exam_type: {exam_type}, num_questions: {num_questions}")
+        normalized_exam_type = exam_type.strip() if isinstance(exam_type, str) else exam_type
 
         cursor.execute(''' 
             SELECT question_id, question_text, option_a, option_b, option_c, option_d, correct_answer
@@ -166,19 +164,10 @@ class UserDatabase:
             WHERE question_type = ?
             ORDER BY RANDOM()
             LIMIT ?;
-        ''', (exam_type, num_questions))
+        ''', (normalized_exam_type, num_questions))
         
         questions = cursor.fetchall()
         conn.close()
-        
-        print(exam_type)
-
-        # Debug: Log the fetched results
-        print(f"Fetched {len(questions)} questions for exam type: {exam_type}")
-        
-        # Fallback: If no questions were found
-        if len(questions) == 0:
-            print(f"No questions found for exam type: {exam_type}. Please check your database.")
         
         return questions
 
