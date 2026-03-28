@@ -103,5 +103,6 @@ streamlit run app.py
 ## ☁️ Streamlit Deployment Notes
 
 - Make sure the app is deployed with the dependencies in `requirements.txt`.
+- Keep `streamlit` and `streamlit-option-menu` on compatible recent versions (the pinned ranges in `requirements.txt` avoid old Streamlit + Altair incompatibilities).
 - The app now auto-creates required SQLite tables on startup if they do not exist.
 - If no questions are loaded in the `Questions` table, exam screens will show "No questions available" until data is added.
