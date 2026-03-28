@@ -4,9 +4,62 @@ import bcrypt
 class UserDatabase:
     def __init__(self, db_name="beta.db"):
         self.db_name = db_name
+        self._initialize_database()
 
     def _get_connection(self):
         return sqlite3.connect(self.db_name)
+
+    def _initialize_database(self):
+        conn = self._get_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS Users (
+                    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    username TEXT NOT NULL UNIQUE,
+                    email TEXT NOT NULL UNIQUE,
+                    password TEXT NOT NULL,
+                    user_type TEXT NOT NULL DEFAULT 'student'
+                );
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS Questions (
+                    question_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    question_text TEXT NOT NULL,
+                    option_a TEXT NOT NULL,
+                    option_b TEXT NOT NULL,
+                    option_c TEXT NOT NULL,
+                    option_d TEXT NOT NULL,
+                    correct_answer TEXT NOT NULL,
+                    question_type TEXT NOT NULL
+                );
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS UserProgress (
+                    progress_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    questions_attempted INTEGER NOT NULL DEFAULT 0,
+                    correct_answers INTEGER NOT NULL DEFAULT 0,
+                    score INTEGER NOT NULL DEFAULT 0,
+                    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+                );
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS UserAnswers (
+                    answer_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    question_id INTEGER NOT NULL,
+                    selected_answer TEXT NOT NULL,
+                    is_correct INTEGER NOT NULL,
+                    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+                    FOREIGN KEY (question_id) REFERENCES Questions(question_id)
+                );
+            """)
+            conn.commit()
+        finally:
+            conn.close()
 
     def authenticate_user(self, username, password):
         conn = self._get_connection()
