@@ -99,8 +99,8 @@ def admin_dashboard():
                "Total Questions Attempted", "Total Correct Answers", "Total Score"]
     users_df = pd.DataFrame(users, columns=columns)
 
-    # Ensure "Is Admin" is a Boolean column
-    users_df["Is Admin"] = users_df["Is Admin"].map(lambda x: x == "Yes")
+    # Ensure "Is Admin" is a Boolean column based on user_type values
+    users_df["Is Admin"] = users_df["Is Admin"].map(lambda x: str(x).strip().lower() == "admin")
 
     # Display the table
     st.dataframe(users_df)
@@ -123,7 +123,7 @@ def admin_dashboard():
         elif st.button(f"Remove {user_to_promote} from Admin"):
             try:
                 db.remove_admin(user_to_promote)
-                st.success(f"{user_to_promote} hs been removed from admin.")
+                st.success(f"{user_to_promote} has been removed from admin.")
                 st.rerun()  # Force a re-run to refresh the data
             except ValueError as e:
                 st.error(e)
@@ -139,7 +139,7 @@ def exams():
         return
 
     st.subheader("Select an Exam Type")
-    exam_types = ["VERBAL ABILITY", " ANALYTICAL REASONING", "QUANTITATIVE REASONING", "SUBJECT KNOWLEDGE"]
+    exam_types = ["VERBAL ABILITY", "ANALYTICAL REASONING", "QUANTITATIVE REASONING", "SUBJECT KNOWLEDGE"]
 
     for exam in exam_types:
         if st.button(exam):
